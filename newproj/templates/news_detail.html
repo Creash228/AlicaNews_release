@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <article class="card">
+            <div class="card-header">
+                <h1>{{ news.title }}</h1>
+                <small class="text-muted">
+                    Автор: {{ news.author.name }} | 
+                    {{ news.created_at.strftime('%d.%m.%Y %H:%M') if news.created_at }}
+                    {% if news.is_private %}
+                        | <span class="badge bg-warning">🔒 Личная новость</span>
+                    {% endif %}
+                </small>
+            </div>
+            
+            {% if news.image %}
+            <div class="text-center p-3 bg-light">
+                <img src="{{ news.image }}" class="img-fluid rounded" alt="Изображение к новости" style="max-height: 400px;">
+            </div>
+            {% endif %}
+            
+            <div class="card-body">
+                <p class="card-text">{{ news.content }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ url_for('main.index') }}" class="btn btn-secondary">← Назад</a>
+                {% if current_user.is_authenticated and current_user.id == news.author_id %}
+                    <a href="{{ url_for('news.edit', news_id=news.id) }}" class="btn btn-warning">✏️ Редактировать</a>
+                    <a href="{{ url_for('news.delete', news_id=news.id) }}" class="btn btn-danger" onclick="return confirm('Удалить новость?')">🗑️ Удалить</a>
+                {% endif %}
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

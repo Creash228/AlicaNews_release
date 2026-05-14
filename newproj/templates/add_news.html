@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><h3>{{ title }}</h3></div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.title.label(class="form-label") }}
+                        {{ form.title(class="form-control") }}
+                        {% for error in form.title.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.content.label(class="form-label") }}
+                        {{ form.content(class="form-control", rows=10) }}
+                        {% for error in form.content.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.photo.label(class="form-label") }}
+                        {{ form.photo(class="form-control") }}
+                        {% for error in form.photo.errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                        <small class="text-muted">Поддерживаются форматы: JPG, JPEG, PNG, GIF</small>
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.is_private(class="form-check-input") }}
+                        {{ form.is_private.label(class="form-check-label") }}
+                        <small class="text-muted d-block">Личные новости видны только вам</small>
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                    <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

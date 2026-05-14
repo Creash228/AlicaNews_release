@@ -1,0 +1,4 @@
+PassengerEnabled On
+PassengerPython /home/m/maksiy1x/maksiy1x.beget.tech/venv/bin/python3
+PassengerFriendlyErrorPages on
+PassengerAppEnv development
